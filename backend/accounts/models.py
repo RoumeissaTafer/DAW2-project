@@ -2,25 +2,27 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class User(AbstractUser):
-
+    #fields must add them
+    full_name = models.CharField(max_length=255)
+    email = models.EmailField(unique=True)
+    
+    #user role
     ROLE_CHOICES = [
-        ('SUPER_ADMIN', 'Super Admin'),
-        ('ADMIN', 'Organizer'),
+        ('ORGANIZER', 'Organizer'),
         ('COMMUNICANT', 'Communicant'),
-        ('COMMITTEE_MEMBER', 'Reviewer'),
+        ('REVIEWER', 'Reviewer'),
         ('PARTICIPANT', 'Participant'),
-        ('SPEAKER', 'Invited Speaker'),
-        ('WORKSHOP_ANIMATOR', 'Workshop Animator'),
+        ('GUEST', 'Guest'),
+        ('ANIMATOR', 'Workshop Animator'),
     ]
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES)
 
-    role = models.CharField(max_length=30, choices=ROLE_CHOICES, default='PARTICIPANT')
+    #extra fields
+    profile_picture = models.ImageField(upload_to='profiles/', null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
+    organization = models.CharField(max_length=255, null=True, blank=True)
 
-    # Extra optional fields
-    bio = models.TextField(max_length=255, blank=True, null=True)
-    organization = models.CharField(max_length=255, blank=True, null=True)
-
-    # Profile picture field
-    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
-
-    def __str__(self):
-        return f"{self.username} ({self.role})"
+    # User logs in with email, not username
+    USERNAME_FIELD = 'email'
+    #requires it when creating accounts
+    REQUIRED_FIELDS = ['username']

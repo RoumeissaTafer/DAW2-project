@@ -51,7 +51,7 @@ REST_FRAMEWORK = {
     
 }
 
-# Tell Django to use your custom user model
+# tell Django I will create my own user model
 AUTH_USER_MODEL = 'accounts.User'
 
 
