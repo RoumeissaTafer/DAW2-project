@@ -1,19 +1,41 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.base_user import BaseUserManager
 
-class User(AbstractUser):
-    #fields must add them
+
+# --- USER MANAGER ---
+class UserManager(BaseUserManager):
+
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError("Email is required")
+
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save()
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+
+        return self.create_user(email, password, **extra_fields)
+
+
+# --- USER MODEL ---
+class User(AbstractBaseUser, PermissionsMixin):
+
     full_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
-    
-    #user role
+
     ROLE_CHOICES = [
         ('ORGANIZER', 'Organizer'),
         ('COMMUNICANT', 'Communicant'),
         ('REVIEWER', 'Reviewer'),
         ('PARTICIPANT', 'Participant'),
         ('GUEST', 'Guest'),
-        ('ANIMATOR', 'Workshop Animator'),
+        ('ANIMATOR', 'Animator'),
     ]
     role = models.CharField(max_length=20, choices=ROLE_CHOICES)
 
@@ -22,7 +44,16 @@ class User(AbstractUser):
     bio = models.TextField(null=True, blank=True)
     organization = models.CharField(max_length=255, null=True, blank=True)
 
-    # User logs in with email, not username
-    USERNAME_FIELD = 'email'
-    #requires it when creating accounts
-    REQUIRED_FIELDS = ['username']
+    # Required for Django auth
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    # Login with email
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = []
+
+    # Connect manager
+    objects = UserManager()
+
+    def __str__(self):
+        return self.email
