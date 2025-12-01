@@ -52,7 +52,7 @@ REST_FRAMEWORK = {
 }
 
 # tell Django I will create my own user model
-AUTH_USER_MODEL = 'accounts.User'
+#AUTH_USER_MODEL = 'accounts.User'
 
 
 
