@@ -46,9 +46,15 @@ INSTALLED_APPS = [
     'certificates',
 ]
 
+# to work with rest apis
 REST_FRAMEWORK = {
     
 }
+
+# tell Django I will create my own user model
+#AUTH_USER_MODEL = 'accounts.User'
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
