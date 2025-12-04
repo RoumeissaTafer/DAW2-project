@@ -31,13 +31,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # Django apps...
+    'rest_framework',
+    'corsheaders',
     #My apps
     'accounts',
     'events',
@@ -57,6 +60,8 @@ REST_FRAMEWORK = {
 
 
 MIDDLEWARE = [
+    #corsheaders middleware
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -65,6 +70,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+# to allow React 3000 call my backend APIs
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'MedSymposium.urls'
 
@@ -91,8 +98,12 @@ WSGI_APPLICATION = 'MedSymposium.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME':'',
+        'USER':'',
+        'PASSWORD':'postgres123',
+        'HOST':'localhost',
+        'PORT':'5432',
     }
 }
 
