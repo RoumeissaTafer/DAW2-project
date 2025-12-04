@@ -31,17 +31,19 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # default django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    # Django apps...
+
+    # third-party
     'rest_framework',
     'corsheaders',
-    #My apps
+
+    # my apps
     'accounts',
     'events',
     'submissions',
@@ -49,12 +51,13 @@ INSTALLED_APPS = [
     'certificates',
 ]
 
+AUTH_USER_MODEL = "accounts.User"
+
 # to work with rest apis
 REST_FRAMEWORK = {
     
 }
 
-AUTH_USER_MODEL = 'accounts.User'
 
 MIDDLEWARE = [
     #corsheaders middleware
