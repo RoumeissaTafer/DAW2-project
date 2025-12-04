@@ -54,10 +54,7 @@ REST_FRAMEWORK = {
     
 }
 
-# tell Django I will create my own user model
-#AUTH_USER_MODEL = 'accounts.User'
-
-
+AUTH_USER_MODEL = 'accounts.User'
 
 MIDDLEWARE = [
     #corsheaders middleware
@@ -99,8 +96,8 @@ WSGI_APPLICATION = 'MedSymposium.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME':'',
-        'USER':'',
+        'NAME':'medsymposium',
+        'USER':'postgres',
         'PASSWORD':'postgres123',
         'HOST':'localhost',
         'PORT':'5432',
