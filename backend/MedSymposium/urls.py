@@ -4,6 +4,4 @@ from events import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('events.urls')),
-    path('api/accounts/', include('accounts.urls')),
 ]
