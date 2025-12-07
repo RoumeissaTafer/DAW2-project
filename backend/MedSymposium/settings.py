@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +30,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     # default django apps
     'django.contrib.admin',
@@ -51,11 +51,22 @@ INSTALLED_APPS = [
     'certificates',
 ]
 
+# tell django to use my custom User instead of the default
 AUTH_USER_MODEL = "accounts.User"
 
 # to work with rest apis
 REST_FRAMEWORK = {
-    
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.IsAuthenticated",
+    ),
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
 
@@ -70,7 +81,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-# to allow React 3000 call my backend APIs
+# to allow React 3000 call my backend APIs 8000
 CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'MedSymposium.urls'
