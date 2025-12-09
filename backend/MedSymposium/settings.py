@@ -54,7 +54,7 @@ INSTALLED_APPS = [
 # tell django to use my custom User instead of the default
 AUTH_USER_MODEL = "accounts.User"
 
-# to work with rest apis
+# to work with REST APIs
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
@@ -82,7 +82,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 # to allow React 3000 call my backend APIs 8000
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
 
 ROOT_URLCONF = 'MedSymposium.urls'
 
@@ -104,9 +106,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'MedSymposium.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
+# my database configuration
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
