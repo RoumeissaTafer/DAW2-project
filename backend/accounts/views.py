@@ -10,7 +10,10 @@ User = get_user_model()
 
 #SimpleJWT customization for login response
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
-
+    """
+        Customize JWT login response to include serialized user data
+        alongside access and refresh tokens.
+    """
     # check username and password and returns the data 
     def validate(self, attrs):
         # Call the superclass method to validate the credentials
@@ -25,11 +28,14 @@ class LoginView(TokenObtainPairView):
 
 #POST view for new user registration
 class RegisterView(generics.CreateAPIView):
+    """
+        Public endpoint for user registration.
+    """
     #to tell view which model to work with
     queryset = User.objects.all()
     #data comes from frontend to backend
     serializer_class = RegisterSerializer
-    #anyone can access this view
+    #anyone can access this view => anyone can register
     permission_classes = [permissions.AllowAny]
 
 #GET view for current user
