@@ -23,7 +23,6 @@ class User(AbstractUser):
     institution = models.CharField(max_length=255, blank=True)
     bio = models.TextField(blank=True)
     photo = models.ImageField(upload_to="profiles/", blank=True, null=True)
-    
 
     #Return name (role) of the user on admin page.
     def __str__(self):
