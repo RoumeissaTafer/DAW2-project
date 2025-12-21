@@ -9,17 +9,5 @@ __pycache__/
 *.pyo
 *.pyd
 
-# Django stuff
-db.sqlite3
-media/
-staticfiles/
 
-# VSCode / PyCharm
-.vscode/
-.idea/
 
-# Logs
-*.log
-
-# OS files
-.DS_Store

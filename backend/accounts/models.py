@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     """
-        extended Django’s authentication system 
+        extended Django authentication system 
         by creating our own model
     """
     class Roles(models.TextChoices):
@@ -15,12 +15,7 @@ class User(AbstractUser):
         GUEST = "GUEST", "Invité / Conférencier"
         ANIMATOR = "ANIMATOR", "Animateur de Workshop"
 
-    role = models.CharField(
-        max_length=30,
-        choices=Roles.choices,
-        default=Roles.PARTICIPANT,
-    )
-    institution = models.CharField(max_length=255, blank=True)
+    role = models.CharField(max_length=30, choices=Roles.choices, default=Roles.PARTICIPANT)
     bio = models.TextField(blank=True)
     photo = models.ImageField(upload_to="profiles/", blank=True, null=True)
 
