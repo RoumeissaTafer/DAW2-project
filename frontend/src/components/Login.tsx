@@ -16,7 +16,7 @@ export default function MedicalAuth() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLogin, setIsLogin] = useState(true); 
   const [role, setRole] = useState("");
-  const [photo, setPhoto] = useState(null);
+  const [photo, setPhoto] = useState<File | null>(null);
   const [bio, setBio] = useState("");
 
   const {
@@ -159,7 +159,7 @@ export default function MedicalAuth() {
           type="file"
           accept="image/*"
           required
-          onChange={(e) => setPhoto(e.target.files[0])}
+          onChange={(e) => setPhoto(e.target.files?.[0] || null)}
           className="w-full text-sm text-slate-600
                      file:mr-4 file:py-2 
                      file:rounded file:border-0
