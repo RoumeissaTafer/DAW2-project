@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-
 class User(AbstractUser):
     """
         extended Django authentication system 
@@ -21,5 +20,4 @@ class User(AbstractUser):
 
     #Return name (role) of the user on admin page.
     def __str__(self):
-        return f"{self.username} ({self.role})"
-
+        return f"{self.username} ({self.role})" 
