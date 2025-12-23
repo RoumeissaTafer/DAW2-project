@@ -10,9 +10,11 @@ type FormData = {
   email: string;
   password: string;
   confirmPassword?: string; 
+  username:string;
 };
 
 export default function MedicalAuth() {
+  //const [username, setUsername] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLogin, setIsLogin] = useState(true); 
   const [role, setRole] = useState("");
@@ -60,7 +62,25 @@ export default function MedicalAuth() {
 
        
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-         
+         {!isLogin && (
+          <div>
+              <label className="label">Username</label>
+              <input
+                type="text"
+                placeholder="Enter your username"
+                className={`input ${errors.username ? "input-error" : ""}`}
+                required
+                {...register("username", {
+                required: "username is required",
+                pattern: {
+                  value: /^\S+@\S+$/,
+                  message: "Invalid username format",
+                },
+                })}
+              />
+              {errors.username && <p className="error">{errors.username.message}</p>}
+            </div>
+         )}
           <div>
             <label className="label">Email Address</label>
             <input

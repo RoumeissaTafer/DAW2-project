@@ -7,7 +7,7 @@ User = settings.AUTH_USER_MODEL
 
 
 class Event(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     location = models.CharField(max_length=255)
     theme = models.CharField(max_length=255, blank=True)
@@ -20,22 +20,18 @@ class Event(models.Model):
     organizer = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name="managed_events",
+        related_name="managed_event",
     )
     reviewers = models.ManyToManyField(
         User,
-        related_name="reviewer_in_events",
-        blank=True,
+        related_name="reviewer_in_event",
     )
     guests = models.ManyToManyField(
         User,
         related_name="guest_in_events",
-        blank=True,
     )
 
     registration_link = models.URLField(blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ["start_date"]
@@ -54,6 +50,7 @@ class Registration(models.Model):
 
     class Meta:
         unique_together = ("user", "event")  # one registration per user per event
+        
 class Session(models.Model):
     event = models.ForeignKey(
         Event,
