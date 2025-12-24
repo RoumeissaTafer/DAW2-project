@@ -1,6 +1,6 @@
-<<<<<<< HEAD
+
 from django.contrib import admin
-from .models import Event, EventMember, Workshop
+from .models import Event, EventMember, Workshop,session
 
 
 class EventMemberInline(admin.TabularInline):
@@ -33,10 +33,8 @@ class WorkshopAdmin(admin.ModelAdmin):
     list_display = ("title", "event", "animator", "start_datetime", "end_datetime")
     list_filter = ("start_datetime", "event")
     search_fields = ("title", "event__title", "animator__username", "animator__email")
-=======
-from django.contrib import admin
-#lazem tzidi hadou beh ykhrjou fi admin page normalement
-from .models import Event, Session
-admin.site.register(Event)
-admin.site.register(Session)
->>>>>>> hiba
+
+
+@admin.register(Session)
+class SessionAdmin(admin.ModelAdmin):
+    list_display = ("id", "event")
